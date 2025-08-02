@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod # 1. Pod is the smallest deployable unit in Kubernetes.
+metadata:
+  name: podtest2 # 2. Pod name.
+  labels:
+    app: myapp # 3. Pod labels.
+spec:
+  containers:
+    - name: connt2 # 4. Container name.
+      image: nginx:alpine # 5. Container image.
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podtest3
+spec:
+  containers:
+    - name: connt3
+      image: nginx:alpine
