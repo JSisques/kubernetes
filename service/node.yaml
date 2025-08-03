@@ -5,9 +5,9 @@ metadata:
   annotations:
     # this is a change cause annotation to see when using kubectl rollout history deployment deployment-test command
     kubernetes.io/change-cause: "Changes image to nginx:alpine"
-  name: deployment-test
+  name: deployment-test1
   labels:
-    app: frontend
+    app: backend
 spec:
   # limit the number of old ReplicaSets to keep
   revisionHistoryLimit: 10
@@ -16,11 +16,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: frontend
+      app: backend
   template:
     metadata:
       labels:
-        app: frontend
+        app: backend
     spec:
       containers:
         - name: nginx
@@ -31,13 +31,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-test
+  name: service-test1
   labels:
-    app: frontend
+    app: backend
 spec:
-  type: ClusterIP # ClusterIP is the default type, it's a virtual IP address that is used to access the service from within the cluster
+  type: NodePort # NodePort is a type of service that exposes the service on a port on each node in the cluster
   selector:
-    app: frontend
+    app: backend
   ports:
     - protocol: TCP
       port: 80
