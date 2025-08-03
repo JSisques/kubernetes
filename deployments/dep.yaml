@@ -4,7 +4,7 @@ metadata:
   # annotations are key-value pairs that are used to store additional information about the deployment
   annotations:
     # this is a change cause annotation to see when using kubectl rollout history deployment deployment-test command
-    kubernetes.io/change-cause: "Changes port to 110"
+    kubernetes.io/change-cause: "Changes image to nginx:test-fake for testing rollbacks"
   name: deployment-test
   labels:
     app: frontend
@@ -24,6 +24,6 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:alpine
+          image: nginx:test-fake
           ports:
             - containerPort: 110
