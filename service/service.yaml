@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # annotations are key-value pairs that are used to store additional information about the deployment
+  annotations:
+    # this is a change cause annotation to see when using kubectl rollout history deployment deployment-test command
+    kubernetes.io/change-cause: "Changes image to nginx:alpine"
+  name: deployment-test
+  labels:
+    app: frontend
+spec:
+  # limit the number of old ReplicaSets to keep
+  revisionHistoryLimit: 10
+
+  # Replica set configuration
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 110
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-test
+  labels:
+    app: frontend
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
